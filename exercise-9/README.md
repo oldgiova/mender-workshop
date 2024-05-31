@@ -15,3 +15,23 @@ Please make sure that the environment is clean before make it production ready.
 ```bash
 bash -c ./tests/tests.sh
 ```
+
+
+## Step 2: cleanup the tenants
+
+Connect to MongoDB:
+```bash
+SECRET=$(kubectl get secret mongodb-common -n mender -o jsonpath='{.data.MONGO_URL}' |base64 -d)
+kubectl run -n mender mongosh -it --rm=true --attach=true --image=rtsp/mongosh:1.5.4 --restart=Never -- bash -c "mongosh $SECRET"
+```
+
+Find the tenants:
+```
+use tenantadm;
+
+db.tenants.find({"name":{$regex: '^demo-', $options: 'i'}});
+
+db.tenants.updateMany({"name":{$regex: '^demo-', $options: 'i'}},{$set: {"status": "suspended"}} );
+
+exit
+```
