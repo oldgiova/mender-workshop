@@ -41,3 +41,8 @@ system for your IoT devices using Mender.
 ### [Exercise 0: Lab Setup](exercise-0/README.md)
 ### [Exercise 3: FluxCD Setup](exercise-3/README.md)
 ### [Exercise 7: Mender Setup with FluxCD](exercise-7/README.md)
+
+
+## Smoke tests after a deployment
+### [Exercise 8: Enable Helm Chart Tests](exercise-8/README.md)
+### [Exercise 9: Run manual tests](exercise-9/README.md)
