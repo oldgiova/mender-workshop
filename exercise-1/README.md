@@ -26,6 +26,7 @@ export MENDER_VERSION_TAG="mender-3.6.4"
 export MONGODB_EXISTING_SECRET="replace-with-your-secret"
 export AZURE_CONNECTION_STRING="replace"
 export AZURE_CONTAINER_NAME="replace"
+export TLS_SECRET_NAME="optionally-replace"
 
 cat >mender-3.6.4.yml <<EOF
 global:
@@ -59,21 +60,21 @@ mongodb:
 nats:
   enabled: true
 
+
 ingress:
   enabled: true
   annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: "0"
-    nginx.ingress.kubernetes.io/proxy-buffering: "off"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
-    cert-manager.io/issuer: "letsencrypt"
+    appgw.ingress.kubernetes.io/backend-protocol: http
+    appgw.ingress.kubernetes.io/health-probe-path: /ui/
+    appgw.ingress.kubernetes.io/request-timeout: "600"
+    appgw.ingress.kubernetes.io/ssl-redirect: "true"
+  ingressClassName: azure/application-gateway
   path: /
-  ingressClassName: nginx
   hosts:
     - ${MENDER_SERVER_DOMAIN}
   tls:
   # this secret must exists or it can be created from a working cert-manager instance
-   - secretName: mender-ingress-tls
+   - secretName: ${TLS_SECRET_NAME}
      hosts:
        - ${MENDER_SERVER_DOMAIN}
 
