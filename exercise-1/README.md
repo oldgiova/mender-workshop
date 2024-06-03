@@ -23,8 +23,7 @@ export MENDER_REGISTRY_PASSWORD="replace-with-your-password"
 export MENDER_SERVER_DOMAIN="mender.example.com"
 export MENDER_SERVER_URL="https://${MENDER_SERVER_DOMAIN}"
 export MENDER_VERSION_TAG="mender-3.6.4"
-export MONGODB_ROOT_PASSWORD=$(pwgen 32 1)
-export MONGODB_REPLICA_SET_KEY=$(pwgen 32 1)
+export MONGODB_EXISTING_SECRET="replace-with-your-secret"
 export ACCESS_KEY_ID="replace"
 export SECRET_ACCESS_KEY="replace"
 export AWS_URI="replace-with-your-uri"
@@ -38,6 +37,7 @@ global:
     password: "${MENDER_REGISTRY_PASSWORD}"
     tag: ${MENDER_VERSION_TAG}
   mongodb:
+    existingSecret: "${MONGODB_EXISTING_SECRET}"
     URL: ""
   nats:
     URL: ""
@@ -58,11 +58,7 @@ default:
 
 # This enables bitnami/mongodb sub-chart
 mongodb:
-  enabled: true
-  auth:
-    enabled: true
-    rootPassword: ${MONGODB_ROOT_PASSWORD}
-    replicaSetKey: ${MONGODB_REPLICA_SET_KEY}
+  enabled: false
 
 # This enabled nats sub-chart
 nats:
