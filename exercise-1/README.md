@@ -84,18 +84,15 @@ api_gateway:
 
 device_auth:
   certs:
-    key: |-
-$(cat device_auth.key | sed -e 's/^/      /g')
+    existingSecret: "you-secret-here"
 
 tenantadm:
   certs:
-    key: |-
-$(cat tenantadm.key | sed -e 's/^/      /g')
+    existingSecret: "you-secret-here"
 
 useradm:
   certs:
-    key: |-
-$(cat useradm.key | sed -e 's/^/      /g')
+    existingSecret: "you-secret-here"
 
 EOF
 
