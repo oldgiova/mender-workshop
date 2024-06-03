@@ -24,10 +24,8 @@ export MENDER_SERVER_DOMAIN="mender.example.com"
 export MENDER_SERVER_URL="https://${MENDER_SERVER_DOMAIN}"
 export MENDER_VERSION_TAG="mender-3.6.4"
 export MONGODB_EXISTING_SECRET="replace-with-your-secret"
-export ACCESS_KEY_ID="replace"
-export SECRET_ACCESS_KEY="replace"
-export AWS_URI="replace-with-your-uri"
-export AWS_BUCKET="replace-with-your-bucket"
+export AZURE_CONNECTION_STRING="replace"
+export AZURE_CONTAINER_NAME="replace"
 
 cat >mender-3.6.4.yml <<EOF
 global:
@@ -41,13 +39,10 @@ global:
     URL: ""
   nats:
     URL: ""
-  s3:
-    AWS_URI: "${AWS_URI}"
-    AWS_BUCKET: "${AWS_BUCKET}"
-    AWS_REGION: "us-east-1"
-    AWS_FORCE_PATH_STYLE: "true"
-    AWS_ACCESS_KEY_ID: "${ACCESS_KEY_ID}"
-    AWS_SECRET_ACCESS_KEY: "${SECRET_ACCESS_KEY}"
+  storage: azure
+  azure:
+    AUTH_CONNECTION_STRING: "${AZURE_CONNECTION_STRING}"
+    CONTAINER_NAME: "${AZURE_CONTAINER_NAME}"
   url: "${MENDER_SERVER_URL}"
 
 default:
