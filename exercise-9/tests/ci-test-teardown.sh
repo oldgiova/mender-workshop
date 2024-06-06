@@ -15,4 +15,4 @@
 
 set -e
 
-kubectl delete pod ubuntu
+kubectl delete pod -n mender ubuntu
